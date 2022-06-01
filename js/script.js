@@ -30,6 +30,25 @@ class Player {
 class HumanPlayer extends Player {
   constructor(name) {
     super(name);
+    this._addControls();
+  }
+  _addControls() {
+    const buttonRock = document.createElement("button");
+    buttonRock.innerHTML = "Rock";
+    buttonRock.setAttribute("type", "rock");
+
+    const buttonPaper = document.createElement("button");
+    buttonPaper.innerHTML = "Paper";
+    buttonPaper.setAttribute("type", "Paper");
+
+    const buttonScissors = document.createElement("button");
+    buttonScissors.innerHTML = "Scissors";
+    buttonScissors.setAttribute("type", "scissors");
+    const buttons = [buttonRock, buttonPaper, buttonScissors];
+
+    buttons.forEach((button) => {
+      document.querySelector(".options").appendChild(button);
+    });
   }
 }
 
@@ -57,42 +76,70 @@ const evalRound = (P1, P2) => {
   }
 };
 
-const finalScore = 3;
+// const isGameOver = (p1, p2) => {
+//   return !(p1.score < finalScore && p2.score < finalScore);
+// };
 
-const isGameOver = (p1, p2) => {
-  return !(p1.score < finalScore && p2.score < finalScore);
-};
-
-const playRound = () => {
-  if (!isGameOver(p1, computer)) {
-    evalRound(p1, computer);
-    console.log(
-      `${p1.name}: ${p1.hand}`,
-      `${computer.name}: ${computer.hand}`,
-      `score: ${p1.score}:${computer.score}`
-    );
-    p1.clearHand();
-    computer.clearHand();
-  } else {
-    console.log("game over");
-  }
-};
-
-const computer = new AIPlayer("computer");
-const p1 = new HumanPlayer();
+// const playRound = () => {
+//   if (!isGameOver(p1, computer)) {
+//     evalRound(p1, computer);
+//     console.log(
+//       `${p1.name}: ${p1.hand}`,
+//       `${computer.name}: ${computer.hand}`,
+//       `score: ${p1.score}:${computer.score}`
+//     );
+//     p1.clearHand();
+//     computer.clearHand();
+//   } else {
+//     console.log("game over");
+//   }
+// };
 
 class Game {
   constructor(finalScore) {
     this.finalScore = finalScore;
   }
+  playRound(p1, p2) {
+    if (!this.isGameOver(p1, p2)) {
+      this.evalRound(p1, p2);
+      console.log(
+        `${p1.name}: ${p1.hand}`,
+        `${p2.name}: ${p2.hand}`,
+        `score: ${p1.score}:${p2.score}`
+      );
+      p1.clearHand();
+      p2.clearHand();
+    } else {
+      console.log("game over");
+    }
+  }
+  evalRound = (P1, P2) => {
+    if (P1.hand === P2.hand) return;
+    if (P1.hand === "rock" && P2.hand === "scissors") {
+      P1.addScore();
+    } else if (P1.hand === "paper" && P2.hand === "rock") {
+      P1.addScore();
+    } else if (P1.hand === "scissors" && P2.hand === "paper") {
+      P1.addScore();
+    } else {
+      P2.addScore();
+    }
+  };
+  isGameOver = (p1, p2) => {
+    return !(p1.score < finalScore && p2.score < finalScore);
+  };
 }
 
-myGame = new Game(finalScore);
+const finalScore = 3;
+
+const computer = new AIPlayer("computer");
+const p1 = new HumanPlayer();
+const myGame = new Game(finalScore);
 
 options = document.querySelector(".options");
 
 options.addEventListener("click", (e) => {
   p1.hand = e.target.attributes.type.value.toLowerCase();
   computer.hand = computer.randomHand();
-  playRound();
+  myGame.playRound(p1, computer);
 });
