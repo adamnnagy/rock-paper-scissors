@@ -21,6 +21,7 @@ A player has a hand and a score (name? default: P1)
 
 ## a round
 player picks hand (1 - rock, 2 - paper, 3 - scissors)
+1. 
 display the hands - eg. P1: rock Computer: rock
 determine the outcome - "draw - play again", "rock beats scissors, P1 gets a point"
 calculate who gets the point
@@ -47,3 +48,4 @@ input field for player name
 buttons for the options (rock, paper, scissors)
 a place where the opponents pick will be
 layout: side by side or top-bottom
+scores tally - it should be obvious how many points/rounds you need to win
