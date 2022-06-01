@@ -27,17 +27,22 @@ class Player {
   }
 }
 
-class Game {
-  constructor(rounds) {
-    this.rounds = rounds;
+class HumanPlayer extends Player {
+  constructor(name) {
+    super(name);
   }
 }
 
-const randomHand = () => {
-  const options = ["rock", "paper", "scissors"];
-  const randomPick = Math.floor(Math.random() * 3);
-  return options[randomPick];
-};
+class AIPlayer extends Player {
+  constructor(name) {
+    super(name);
+  }
+  randomHand = () => {
+    const options = ["rock", "paper", "scissors"];
+    const randomPick = Math.floor(Math.random() * 3);
+    return options[randomPick];
+  };
+}
 
 const evalRound = (P1, P2) => {
   if (P1.hand === P2.hand) return;
@@ -52,11 +57,11 @@ const evalRound = (P1, P2) => {
   }
 };
 
+const finalScore = 3;
+
 const isGameOver = (p1, p2) => {
-  return !(p1.score < 3 && p2.score < 3);
+  return !(p1.score < finalScore && p2.score < finalScore);
 };
-
-
 
 const playRound = () => {
   if (!isGameOver(p1, computer)) {
@@ -73,12 +78,21 @@ const playRound = () => {
   }
 };
 
-const options = document.querySelector(".options");
-const computer = new Player("computer");
-const p1 = new Player();
+const computer = new AIPlayer("computer");
+const p1 = new HumanPlayer();
+
+class Game {
+  constructor(finalScore) {
+    this.finalScore = finalScore;
+  }
+}
+
+myGame = new Game(finalScore);
+
+options = document.querySelector(".options");
 
 options.addEventListener("click", (e) => {
-  p1.hand = e.target.innerHTML.toLowerCase();
-  computer.hand = randomHand();
+  p1.hand = e.target.attributes.type.value.toLowerCase();
+  computer.hand = computer.randomHand();
   playRound();
 });
