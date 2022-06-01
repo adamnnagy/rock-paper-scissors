@@ -39,31 +39,46 @@ const randomHand = () => {
   return options[randomPick];
 };
 
-const checkWinner = (P1, P2) => {
+const evalRound = (P1, P2) => {
   if (P1.hand === P2.hand) return;
-  let score = null;
   if (P1.hand === "rock" && P2.hand === "scissors") {
-      P1.addScore();
+    P1.addScore();
+  } else if (P1.hand === "paper" && P2.hand === "rock") {
+    P1.addScore();
+  } else if (P1.hand === "scissors" && P2.hand === "paper") {
+    P1.addScore();
+  } else {
+    P2.addScore();
   }
-  if (P1.hand === "paper" && P2.hand === "rock") {
-      P1.addScore();
-  }
-  if (P1.hand === "scissors" && P2.hand === "paper") {
-      P1.addScore();
+};
+
+const isGameOver = (p1, p2) => {
+  return !(p1.score < 3 && p2.score < 3);
+};
+
+
+
+const playRound = () => {
+  if (!isGameOver(p1, computer)) {
+    evalRound(p1, computer);
+    console.log(
+      `${p1.name}: ${p1.hand}`,
+      `${computer.name}: ${computer.hand}`,
+      `score: ${p1.score}:${computer.score}`
+    );
+    p1.clearHand();
+    computer.clearHand();
+  } else {
+    console.log("game over");
   }
 };
 
 const options = document.querySelector(".options");
-
-options.addEventListener("click", (e) => {
-   p1.hand = e.target.innerHTML.toLowerCase();
-   computer.hand = randomHand();
-   checkWinner(p1, computer);
-   checkWinner(computer, p1);
-   console.log(`${p1.name}: ${p1.score}`, `${computer.name}: ${computer.score}`);
-});
-
-const computer = new Player('computer');
+const computer = new Player("computer");
 const p1 = new Player();
 
-// console.log(randomHand());
+options.addEventListener("click", (e) => {
+  p1.hand = e.target.innerHTML.toLowerCase();
+  computer.hand = randomHand();
+  playRound();
+});
