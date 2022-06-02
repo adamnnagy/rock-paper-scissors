@@ -1,7 +1,7 @@
 "use strict";
 
 class Player {
-  constructor(name = "P1") {
+  constructor(name) {
     this.name = name;
     this.hand = null;
     this.score = 0;
