@@ -34,6 +34,7 @@ class PlayerUI {
     const tally = document.createElement("div");
     tally.setAttribute("class", `score`);
     tally.setAttribute("id", `${this.name}-score`);
+    tally.innerText = " "
     return tally;
   }
 
