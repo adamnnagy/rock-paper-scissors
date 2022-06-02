@@ -15,14 +15,14 @@ class Game {
 
     const startGameButton = document.querySelector(".intro button");
 
-    this.nameInput = document.querySelector("#name");
     startGameButton.addEventListener("click", () => {
       this.startGame();
     });
   }
   startGame() {
+    this.clearResult();
     this.roundCount = 0;
-    this.createPlayers(this.nameInput.value || "You", "HAL 9000");
+    this.createPlayers("You", "HAL 9000");
     this.hideIntroScreen();
     if (!this.controlsCreated) {
       this.createControls();
@@ -30,6 +30,7 @@ class Game {
     } else {
       this.showPlayers();
     }
+    this.cUI.clearChoice();
     this.controlsCreated = true;
   }
   initControls() {
@@ -38,23 +39,38 @@ class Game {
     this.controls.addEventListener("click", (e) => {
       this.player.hand = e.target.attributes.type.value.toLowerCase();
       this.computer.hand = this.computer.randomHand();
-      this.playRound();
+
+      this.mainGame();
     });
   }
-  playRound() {
-    if (!this.isGameOver(this.player, this.computer)) {
-      this.roundCount++;
-      this.evalRound(this.player, this.computer);
-      this.displayResult(this.resultText(this.player, this.computer));
-      this.cUI.displayChoice(this.computer.hand);
-      this.player.clearHand();
-      this.computer.clearHand();
-    } else {
-      this.displayResult(this.gameOverText());
-      this.displayIntroScreen();
-      this.hidePlayers();
+  mainGame = () => {
+    this.cUI.clearChoice();
+
+    this.startRound();
+
+    this.cUI.displayChoice(this.computer.hand);
+    this.player.clearHand();
+    this.computer.clearHand();
+  };
+  startRound() {
+    this.playRound();
+    if (this.isGameOver(this.player, this.computer)) {
+      this.gameOver();
     }
   }
+  playRound = () => {
+    this.roundCount++;
+    this.getPoints(this.player, this.computer);
+    this.displayResult(this.resultText(this.player, this.computer));
+  };
+  gameOver = () => {
+    this.displayResult(this.gameOverText());
+    this.displayIntroScreen();
+    this.hidePlayers();
+    this.cUI.clearScore();
+    this.pUI.clearScore();
+    
+  };
   resultText(p1, p2) {
     return `${this.roundCount}. ${p1.name}: ${p1.hand} ${p2.name}: ${p2.hand} score: ${p1.score}:${p2.score}`;
   }
@@ -64,14 +80,17 @@ class Game {
   displayResult(result) {
     this.pUI.displayScore(this.player.score);
     this.cUI.displayScore(this.computer.score);
-    this.scoreBoard.innerHTML += `<p>${result}</p>`;
+    this.scoreBoard.innerHTML = `<p>${result}</p>`;
   }
+  clearResult = () => {
+    this.scoreBoard.innerHTML = "";
+  };
   getWinner() {
     if (this.player.score > this.computer.score) {
       return this.player.name;
     } else return this.computer.name;
   }
-  evalRound = (P1, P2) => {
+  getPoints = (P1, P2) => {
     if (P1.hand === P2.hand) return;
     if (P1.hand === "rock" && P2.hand === "scissors") {
       P1.addScore();
@@ -95,7 +114,7 @@ class Game {
     this.cUI = new AIUI(this.computer.name);
   }
   showPlayers() {
-    document.querySelector(".players").style.display = "block";
+    document.querySelector(".players").style.display = "flex";
   }
   hidePlayers() {
     document.querySelector(".players").style.display = "none";

@@ -3,6 +3,7 @@ class PlayerUI {
     this.displayName = name;
     this.name = name.toLowerCase().replace(" ", "-");
 
+    
     this.container = null;
   }
   get container() {
@@ -11,12 +12,18 @@ class PlayerUI {
   set container(c) {
     this._container = c;
   }
+  createControlBox = () => {
+    const controls = document.createElement("div");
+    controls.setAttribute("class", "controls");
+    return controls;
+  }
   _createPlayerContainer() {
     const container = document.createElement("div");
     container.setAttribute("id", `${this.name}-container`);
+    container.setAttribute("class", `player`);
     this.container = container;
   }
-  _addContainerToGame(cont) {
+  _addContainerToGame() {
     const gameContainer = document.querySelector(".players");
     gameContainer.appendChild(this.container);
   }
@@ -25,9 +32,11 @@ class PlayerUI {
   }
   _scoreTally() {
     const tally = document.createElement("div");
+    tally.setAttribute("class", `score`);
     tally.setAttribute("id", `${this.name}-score`);
     return tally;
   }
+
   _nameTag() {
     const nameTag = document.createElement("h1");
     nameTag.innerText = this.displayName;
@@ -35,7 +44,11 @@ class PlayerUI {
   }
   displayScore(score) {
     const tally = document.querySelector(`#${this.name}-score`);
-    tally.innerText = `${"* ".repeat(score)}`;
+    tally.innerText = `${"X ".repeat(score)}`;
+  }
+  clearScore() {
+    const tally = document.querySelector(`#${this.name}-score`);
+    tally.innerText = ``;
   }
   initializeUI() {}
 }

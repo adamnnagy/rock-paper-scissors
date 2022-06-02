@@ -16,14 +16,13 @@ class HumanPlayerUI extends PlayerUI {
     this._addContainerToGame(this.container);
     this._addElementToPlayerContainer(this._nameTag());
 
-    const controls = document.createElement("div");
-    controls.setAttribute("class", "controls");
+    const controlsBox = this.createControlBox();
 
-    controls.appendChild(this._createButton("rock"));
-    controls.appendChild(this._createButton("paper"));
-    controls.appendChild(this._createButton("scissors"));
+    controlsBox.appendChild(this._createButton("rock"));
+    controlsBox.appendChild(this._createButton("paper"));
+    controlsBox.appendChild(this._createButton("scissors"));
     
-    this._addElementToPlayerContainer(controls);
+    this._addElementToPlayerContainer(controlsBox);
 
     this._addElementToPlayerContainer(this._scoreTally());
   }
