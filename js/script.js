@@ -33,26 +33,15 @@ class HumanPlayer extends Player {
   constructor(name) {
     super(name);
     this._addControls();
+    this._changeName();
   }
   _addControls() {
-    const buttonRock = document.createElement("button");
-    buttonRock.innerHTML = "Rock";
-    buttonRock.setAttribute("type", "rock");
-
-    const buttonPaper = document.createElement("button");
-    buttonPaper.innerHTML = "Paper";
-    buttonPaper.setAttribute("type", "Paper");
-
-    const buttonScissors = document.createElement("button");
-    buttonScissors.innerHTML = "Scissors";
-    buttonScissors.setAttribute("type", "scissors");
-    const buttons = [buttonRock, buttonPaper, buttonScissors];
-
-    buttons.forEach((button) => {
-      document.querySelector(".options").appendChild(button);
-    });
+    document.querySelector(".controls").style.display = 'block';
   }
-  
+  _changeName() {
+    const nameHeading = document.querySelector(".name");
+    nameHeading.innerHTML = this.name;
+  }
 }
 
 class AIPlayer extends Player {
@@ -82,6 +71,10 @@ const evalRound = (P1, P2) => {
 class Game {
   constructor(finalScore) {
     this.finalScore = finalScore;
+
+    const introScreen = document.querySelector(".intro");
+    const startGameButton = document.querySelector(".intro button");
+    console.log(startGameButton);
   }
   playRound(p1, p2) {
     if (!this.isGameOver(p1, p2)) {
@@ -116,11 +109,13 @@ class Game {
 
 const finalScore = 3;
 
+
+
 const computer = new AIPlayer("computer");
 const p1 = new HumanPlayer();
 const myGame = new Game(finalScore);
 
-const options = document.querySelector(".options");
+const options = document.querySelector(".controls");
 
 options.addEventListener("click", (e) => {
   p1.hand = e.target.attributes.type.value.toLowerCase();

@@ -3,14 +3,25 @@ body {
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .container {
+    display: flex;
     padding: 1rem;
 }
 
-.options {
+.intro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.controls {
     /* margin: 0 auto; */
+    /* visibility: hidden; */
+    display: none;
 }
 
 button {
