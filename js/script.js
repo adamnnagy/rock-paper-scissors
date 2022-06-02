@@ -30,7 +30,7 @@ class Player {
 }
 
 class HumanPlayer extends Player {
-  constructor(name = 'Rando') {
+  constructor(name = "Rando") {
     super(name);
     this._addControls();
     this._changeName();
@@ -71,36 +71,60 @@ const evalRound = (P1, P2) => {
 class Game {
   constructor(finalScore) {
     this.finalScore = finalScore;
+    this.scoreBoard = document.querySelector("#score-board");
+    this.roundCount = null;
 
-    const introScreen = document.querySelector(".intro");
+    this.player = null;
+    this.computer = null;
+
+    this.introScreen = document.querySelector(".intro");
+    this.controls = document.querySelector(".controls");
+
     const startGameButton = document.querySelector(".intro button");
 
-    const nameInput = document.querySelector("#name");
+    this.nameInput = document.querySelector("#name");
     startGameButton.addEventListener("click", (e) => {
-      this.createPlayers(nameInput.value);
-      introScreen.style.display = "none";
+      this.startGame();
     });
-    const controls = document.querySelector(".controls");
 
-    controls.addEventListener("click", (e) => {
-      this.p1.hand = e.target.attributes.type.value.toLowerCase();
+
+    this.controls.addEventListener("click", (e) => {
+      this.player.hand = e.target.attributes.type.value.toLowerCase();
       this.computer.hand = this.computer.randomHand();
-      myGame.playRound(this.p1, this.computer);
+      this.playRound();
     });
   }
-  playRound(p1, p2) {
-    if (!this.isGameOver(p1, p2)) {
-      this.evalRound(p1, p2);
-      console.log(
-        `${p1.name}: ${p1.hand}`,
-        `${p2.name}: ${p2.hand}`,
-        `score: ${p1.score}:${p2.score}`
-      );
-      p1.clearHand();
-      p2.clearHand();
+  startGame(){
+    this.roundCount = 0;
+    this.createPlayers(this.nameInput.value || "You");
+    this.hideIntroScreen();
+  }
+  playRound() {
+    if (!this.isGameOver(this.player, this.computer)) {
+      this.roundCount++;
+      this.evalRound(this.player, this.computer);
+      this.displayResult(this.resultText(this.player, this.computer));
+      this.player.clearHand();
+      this.computer.clearHand();
     } else {
-      console.log("game over");
+      this.displayResult(this.gameOverText());
+      this.disableControls();
+      this.displayIntroScreen();
     }
+  }
+  resultText(p1, p2) {
+    return `${this.roundCount}. ${p1.name}: ${p1.hand} ${p2.name}: ${p2.hand} score: ${p1.score}:${p2.score}`;
+  }
+  gameOverText() {
+    return `Final result: ${this.getWinner()} won!`;
+  }
+  displayResult(result) {
+    this.scoreBoard.innerHTML += `<p>${result}</p>`;
+  }
+  getWinner() {
+    if (this.player.score > this.computer.score) {
+      return this.player.name;
+    } else return this.computer.name;
   }
   evalRound = (P1, P2) => {
     if (P1.hand === P2.hand) return;
@@ -118,8 +142,17 @@ class Game {
     return !(p1.score < finalScore && p2.score < finalScore);
   };
   createPlayers(namePlayer) {
-    this.computer = new AIPlayer("computer");
-    this.p1 = new HumanPlayer(namePlayer);
+    this.player = new HumanPlayer(namePlayer);
+    this.computer = new AIPlayer("HAL 9000");
+  }
+  disableControls() {
+    this.controls.style.display = "none";
+  }
+  displayIntroScreen() {
+    this.introScreen.style.display = "block";
+  }
+  hideIntroScreen() {
+    this.introScreen.style.display = "none";
   }
 }
 
