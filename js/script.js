@@ -1,73 +1,5 @@
 "use strict";
 
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.hand = null;
-    this.score = 0;
-  }
-  displayScore() {
-    console.log(this.score);
-  }
-  set hand(h) {
-    this._hand = h;
-  }
-  get hand() {
-    return this._hand;
-  }
-  get score() {
-    return this._score;
-  }
-  set score(s) {
-    this._score = s;
-  }
-  clearHand() {
-    this.hand = null;
-  }
-  addScore() {
-    this.score++;
-  }
-}
-
-class HumanPlayer extends Player {
-  constructor(name = "Rando") {
-    super(name);
-    this._addControls();
-    this._changeName();
-  }
-  _addControls() {
-    document.querySelector(".controls").style.display = "flex";
-  }
-  _changeName() {
-    const nameHeading = document.querySelector(".name");
-    nameHeading.innerHTML = this.name || "Rando";
-  }
-}
-
-class AIPlayer extends Player {
-  constructor(name) {
-    super(name);
-  }
-  randomHand = () => {
-    const options = ["rock", "paper", "scissors"];
-    const randomPick = Math.floor(Math.random() * 3);
-    return options[randomPick];
-  };
-}
-
-const evalRound = (P1, P2) => {
-  if (P1.hand === P2.hand) return;
-  if (P1.hand === "rock" && P2.hand === "scissors") {
-    P1.addScore();
-  } else if (P1.hand === "paper" && P2.hand === "rock") {
-    P1.addScore();
-  } else if (P1.hand === "scissors" && P2.hand === "paper") {
-    P1.addScore();
-  } else {
-    P2.addScore();
-  }
-};
-
 class Game {
   constructor(finalScore) {
     this.finalScore = finalScore;
@@ -87,14 +19,13 @@ class Game {
       this.startGame();
     });
 
-
     this.controls.addEventListener("click", (e) => {
       this.player.hand = e.target.attributes.type.value.toLowerCase();
       this.computer.hand = this.computer.randomHand();
       this.playRound();
     });
   }
-  startGame(){
+  startGame() {
     this.roundCount = 0;
     this.createPlayers(this.nameInput.value || "You");
     this.hideIntroScreen();
