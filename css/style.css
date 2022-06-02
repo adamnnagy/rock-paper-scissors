@@ -12,19 +12,20 @@ body {
     padding: 1rem;
 }
 
-.intro {
+.player {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    width: 20vw;
 }
 
 .controls {
     /* margin: 0 auto; */
     /* visibility: hidden; */
     display: none;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 button {
     padding: 1rem;
-    margin: 1rem;
 }

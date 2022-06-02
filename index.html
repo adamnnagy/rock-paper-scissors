@@ -12,12 +12,12 @@
       <h1>Rock-Paper-Scissors</h1>
     </div>
     <div class="container game">
-      <h1 class="name">Player</h1>
-      <div class="container">
+      <div class="container player">
+        <h1 class="name">Player</h1>
         <div class="intro">
           <div>
             <label for="name">What's your name?</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" placeholder="(optional)"/>
           </div>
           <div><button type="submit">Start game</button></div>
         </div>
@@ -26,8 +26,8 @@
           ><button type="scissors">Scissors</button>
         </div>
       </div>
-      <div>
-        <h1>Computer</h1>
+      <div class="player computer">
+        <h1 class="name">Computer</h1>
         <p class="pick"></p>
       </div>
     </div>
