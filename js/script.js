@@ -23,6 +23,7 @@ class Game {
     this.clearResult();
     this.roundCount = 0;
     this.createPlayers("You", "HAL 9000");
+    this.showPlayers();
     this.hideIntroScreen();
     if (!this.controlsCreated) {
       this.createControls();
@@ -69,7 +70,7 @@ class Game {
     this.hidePlayers();
     this.cUI.clearScore();
     this.pUI.clearScore();
-    
+    document.querySelector('.start-button').innerText = "Restart?"
   };
   resultText(p1, p2) {
     return `${this.roundCount}. ${p1.name}: ${p1.hand} ${p2.name}: ${p2.hand} score: ${p1.score}:${p2.score}`;
@@ -83,7 +84,7 @@ class Game {
     this.scoreBoard.innerHTML = `<p>${result}</p>`;
   }
   clearResult = () => {
-    this.scoreBoard.innerHTML = "";
+    this.scoreBoard.innerHTML = `<p></p>`;
   };
   getWinner() {
     if (this.player.score > this.computer.score) {
