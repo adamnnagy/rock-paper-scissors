@@ -36,7 +36,7 @@ class HumanPlayer extends Player {
     this._changeName();
   }
   _addControls() {
-    document.querySelector(".controls").style.display = 'block';
+    document.querySelector(".controls").style.display = "block";
   }
   _changeName() {
     const nameHeading = document.querySelector(".name");
@@ -74,7 +74,19 @@ class Game {
 
     const introScreen = document.querySelector(".intro");
     const startGameButton = document.querySelector(".intro button");
-    console.log(startGameButton);
+
+    const nameInput = document.querySelector("#name");
+    startGameButton.addEventListener("click", (e) => {
+      this.createPlayers(nameInput.value);
+      introScreen.style.display = "none";
+    });
+    const controls = document.querySelector(".controls");
+
+    controls.addEventListener("click", (e) => {
+      this.p1.hand = e.target.attributes.type.value.toLowerCase();
+      this.computer.hand = this.computer.randomHand();
+      myGame.playRound(this.p1, this.computer);
+    });
   }
   playRound(p1, p2) {
     if (!this.isGameOver(p1, p2)) {
@@ -105,20 +117,12 @@ class Game {
   isGameOver = (p1, p2) => {
     return !(p1.score < finalScore && p2.score < finalScore);
   };
+  createPlayers(namePlayer) {
+    this.computer = new AIPlayer("computer");
+    this.p1 = new HumanPlayer(namePlayer);
+  }
 }
 
 const finalScore = 3;
 
-
-
-const computer = new AIPlayer("computer");
-const p1 = new HumanPlayer();
 const myGame = new Game(finalScore);
-
-const options = document.querySelector(".controls");
-
-options.addEventListener("click", (e) => {
-  p1.hand = e.target.attributes.type.value.toLowerCase();
-  computer.hand = computer.randomHand();
-  myGame.playRound(p1, computer);
-});
