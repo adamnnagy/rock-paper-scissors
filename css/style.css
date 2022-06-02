@@ -1,31 +1,80 @@
 body {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .container {
-    display: flex;
-    padding: 1rem;
+  display: flex;
+  padding: 1rem;
 }
 
 .player {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+}
+
+.players {
     display: flex;
-    flex-direction: column;
-    width: 20vw;
+    flex-direction: row;
 }
 
 .controls {
-    /* margin: 0 auto; */
-    /* visibility: hidden; */
-    display: none;
-    flex-direction: row;
-    justify-content: space-between;
+  /* margin: 0 auto; */
+  /* visibility: hidden; */
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 button {
-    padding: 1rem;
+  padding: 1rem;
+}
+
+button:active {
+    background-color: #1620ad;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.load {
+  width: 50px;
+  height: 50px;
+  margin: 110px auto 0;
+  border: solid 10px #1620ad;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+
+  transition: all 0.5s ease-in;
+  animation-name: rotate;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }

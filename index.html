@@ -9,33 +9,23 @@
   </head>
   <body>
     <h1>Rock-Paper-Scissors</h1>
+    <div class="intro">
+      <div>
+        <label for="name">What's your name?</label>
+        <input type="text" name="name" id="name" placeholder="(optional)" />
+      </div>
+      <div><button type="submit">Start game</button></div>
+    </div>
     <div class="container game">
-      <div class="container player">
-        <h1 class="name">Player</h1>
-        <div class="intro">
-          <div>
-            <label for="name">What's your name?</label>
-            <input type="text" name="name" id="name" placeholder="(optional)"/>
-          </div>
-          <div><button type="submit">Start game</button></div>
-        </div>
-        <div class="controls">
-          <button type="rock">Rock</button><button type="paper">Paper</button
-          ><button type="scissors">Scissors</button>
-        </div>
-        <p class="pick"></p>
-        <p class="score"></p>
-      </div>
-      <div class="player computer">
-        <h1 class="name">Computer</h1>
-        <p class="pick"></p>
-        <p class="score"></p>
-      </div>
+      <div class="players"></div>
     </div>
     <div id="score-board"></div>
   </body>
   <script src="./js/Player.js"></script>
   <script src="./js/AIPlayer.js"></script>
   <script src="./js/HumanPlayer.js"></script>
+  <script src="./js/PlayerUI.js"></script>
+  <script src="./js/HumanPlayerUI.js"></script>
+  <script src="./js/AIUI.js"></script>
   <script src="./js/script.js"></script>
 </html>

@@ -9,15 +9,31 @@ class Game {
     this.player = null;
     this.computer = null;
 
+    this.controlsCreated = false;
+
     this.introScreen = document.querySelector(".intro");
-    this.controls = document.querySelector(".controls");
 
     const startGameButton = document.querySelector(".intro button");
 
     this.nameInput = document.querySelector("#name");
-    startGameButton.addEventListener("click", (e) => {
+    startGameButton.addEventListener("click", () => {
       this.startGame();
     });
+  }
+  startGame() {
+    this.roundCount = 0;
+    this.createPlayers(this.nameInput.value || "You", "HAL 9000");
+    this.hideIntroScreen();
+    if (!this.controlsCreated) {
+      this.createControls();
+      this.initControls();
+    } else {
+      this.showPlayers();
+    }
+    this.controlsCreated = true;
+  }
+  initControls() {
+    this.controls = this.pUI.container || null;
 
     this.controls.addEventListener("click", (e) => {
       this.player.hand = e.target.attributes.type.value.toLowerCase();
@@ -25,22 +41,18 @@ class Game {
       this.playRound();
     });
   }
-  startGame() {
-    this.roundCount = 0;
-    this.createPlayers(this.nameInput.value || "You");
-    this.hideIntroScreen();
-  }
   playRound() {
     if (!this.isGameOver(this.player, this.computer)) {
       this.roundCount++;
       this.evalRound(this.player, this.computer);
       this.displayResult(this.resultText(this.player, this.computer));
+      this.cUI.displayChoice(this.computer.hand);
       this.player.clearHand();
       this.computer.clearHand();
     } else {
       this.displayResult(this.gameOverText());
-      this.disableControls();
       this.displayIntroScreen();
+      this.hidePlayers();
     }
   }
   resultText(p1, p2) {
@@ -50,6 +62,8 @@ class Game {
     return `Final result: ${this.getWinner()} won!`;
   }
   displayResult(result) {
+    this.pUI.displayScore(this.player.score);
+    this.cUI.displayScore(this.computer.score);
     this.scoreBoard.innerHTML += `<p>${result}</p>`;
   }
   getWinner() {
@@ -72,12 +86,19 @@ class Game {
   isGameOver = (p1, p2) => {
     return !(p1.score < finalScore && p2.score < finalScore);
   };
-  createPlayers(namePlayer) {
+  createPlayers(namePlayer, nameComputer) {
     this.player = new HumanPlayer(namePlayer);
-    this.computer = new AIPlayer("HAL 9000");
+    this.computer = new AIPlayer(nameComputer);
   }
-  disableControls() {
-    this.controls.style.display = "none";
+  createControls() {
+    this.pUI = new HumanPlayerUI(this.player.name);
+    this.cUI = new AIUI(this.computer.name);
+  }
+  showPlayers() {
+    document.querySelector(".players").style.display = "block";
+  }
+  hidePlayers() {
+    document.querySelector(".players").style.display = "none";
   }
   displayIntroScreen() {
     this.introScreen.style.display = "block";
