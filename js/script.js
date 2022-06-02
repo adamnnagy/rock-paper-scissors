@@ -1,3 +1,5 @@
+"use strict";
+
 class Player {
   constructor(name = "P1") {
     this.name = name;
@@ -50,6 +52,7 @@ class HumanPlayer extends Player {
       document.querySelector(".options").appendChild(button);
     });
   }
+  
 }
 
 class AIPlayer extends Player {
@@ -75,25 +78,6 @@ const evalRound = (P1, P2) => {
     P2.addScore();
   }
 };
-
-// const isGameOver = (p1, p2) => {
-//   return !(p1.score < finalScore && p2.score < finalScore);
-// };
-
-// const playRound = () => {
-//   if (!isGameOver(p1, computer)) {
-//     evalRound(p1, computer);
-//     console.log(
-//       `${p1.name}: ${p1.hand}`,
-//       `${computer.name}: ${computer.hand}`,
-//       `score: ${p1.score}:${computer.score}`
-//     );
-//     p1.clearHand();
-//     computer.clearHand();
-//   } else {
-//     console.log("game over");
-//   }
-// };
 
 class Game {
   constructor(finalScore) {
@@ -136,7 +120,7 @@ const computer = new AIPlayer("computer");
 const p1 = new HumanPlayer();
 const myGame = new Game(finalScore);
 
-options = document.querySelector(".options");
+const options = document.querySelector(".options");
 
 options.addEventListener("click", (e) => {
   p1.hand = e.target.attributes.type.value.toLowerCase();
