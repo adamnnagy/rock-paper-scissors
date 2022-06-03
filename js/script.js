@@ -46,7 +46,7 @@ class Game {
   }
   mainGame = () => {
     this.cUI.clearChoice();
-
+    this.hideFinalResult();
     this.startRound();
 
     this.cUI.displayChoice(this.computer.hand);
@@ -65,18 +65,32 @@ class Game {
     this.displayResult(this.resultText(this.player, this.computer));
   };
   gameOver = () => {
-    this.displayResult(this.gameOverText());
+    this.clearResult();
     this.displayIntroScreen();
     this.hidePlayers();
     this.cUI.clearScore();
     this.pUI.clearScore();
-    document.querySelector('.start-button').innerText = "Restart?"
+    this.displayFinalResult();
+    this.restartButton();
+  };
+  restartButton = () => {
+    document.querySelector(".start-button").innerText = "Restart?";
   };
   resultText(p1, p2) {
     return `${this.roundCount}. ${p1.name}: ${p1.hand} ${p2.name}: ${p2.hand} score: ${p1.score}:${p2.score}`;
   }
   gameOverText() {
-    return `Final result: ${this.getWinner()} won!`;
+    return `${this.getWinner()} won!`;
+  }
+  hideFinalResult() {
+    const finalResultHeading = document.querySelector("#final-result");
+    finalResultHeading.style.display = "none";
+  }
+  displayFinalResult() {
+    const finalResultHeading = document.querySelector("#final-result");
+
+    finalResultHeading.innerText = this.gameOverText();
+    finalResultHeading.style.display = "block";
   }
   displayResult(result) {
     this.pUI.displayScore(this.player.score);
@@ -121,7 +135,7 @@ class Game {
     document.querySelector(".players").style.display = "none";
   }
   displayIntroScreen() {
-    this.introScreen.style.display = "block";
+    this.introScreen.style.display = "flex";
   }
   hideIntroScreen() {
     this.introScreen.style.display = "none";
