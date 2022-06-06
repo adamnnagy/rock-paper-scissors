@@ -2,22 +2,23 @@
 
 class Game {
   constructor(finalScore) {
-    this.finalScore = finalScore;
+    
     this.scoreBoard = document.querySelector("#score-board");
-    this.roundCount = null;
-
-    this.player = null;
-    this.computer = null;
-
-    this.controlsCreated = false;
-
+    const startGameButton = document.querySelector(".intro button");
     this.introScreen = document.querySelector(".intro");
 
-    const startGameButton = document.querySelector(".intro button");
 
     startGameButton.addEventListener("click", () => {
       this.startGame();
     });
+    
+    this.player = null;
+    this.computer = null;
+    
+    this.finalScore = finalScore;
+    this.roundCount = null;
+    this.controlsCreated = false;
+    
   }
   startGame() {
     this.clearResult();
@@ -65,7 +66,7 @@ class Game {
     this.displayResult(this.resultText(this.player, this.computer));
   };
   gameOver = () => {
-    this.clearResult();
+    // this.clearResult();
     this.displayIntroScreen();
     this.hidePlayers();
     this.computerInterface.clearScore();
@@ -95,7 +96,7 @@ class Game {
   displayResult(result) {
     this.playerUserInterface.displayScore(this.player.score);
     this.computerInterface.displayScore(this.computer.score);
-    this.scoreBoard.innerHTML = `<p>${result}</p>`;
+    this.scoreBoard.innerHTML += `<p>${result}</p>`;
   }
   clearResult = () => {
     this.scoreBoard.innerHTML = `<p></p>`;
@@ -126,7 +127,7 @@ class Game {
   }
   createControls() {
     this.playerUserInterface = new HumanPlayerUI(this.player.name);
-    this.computerInterface = new AIUI(this.computer.name);
+    this.computerInterface = new ComputerInterface(this.computer.name);
   }
   showPlayers() {
     document.querySelector(".players").style.display = "flex";

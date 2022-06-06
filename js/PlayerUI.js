@@ -34,7 +34,7 @@ class PlayerUI {
     const tally = document.createElement("div");
     tally.setAttribute("class", `score`);
     tally.setAttribute("id", `${this.name}-score`);
-    tally.innerText = " "
+    tally.innerText = "∅"
     return tally;
   }
 
@@ -45,7 +45,7 @@ class PlayerUI {
   }
   displayScore(score) {
     const tally = document.querySelector(`#${this.name}-score`);
-    tally.innerText = `${"X ".repeat(score)}`;
+    tally.innerText = score ? `${"X ".repeat(score)}` : "∅";
   }
   clearScore() {
     const tally = document.querySelector(`#${this.name}-score`);

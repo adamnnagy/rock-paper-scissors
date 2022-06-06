@@ -1,4 +1,4 @@
-class AIUI extends PlayerUI {
+class ComputerInterface extends PlayerUI {
   constructor(name) {
     super(name);
     this.initializeUI();
