@@ -31,11 +31,11 @@ class Game {
     } else {
       this.showPlayers();
     }
-    this.cUI.clearChoice();
+    this.computerInterface.clearChoice();
     this.controlsCreated = true;
   }
   initControls() {
-    this.controls = this.pUI.container || null;
+    this.controls = this.playerUserInterface.container || null;
 
     this.controls.addEventListener("click", (e) => {
       this.player.hand = e.target.attributes.type.value.toLowerCase();
@@ -45,11 +45,11 @@ class Game {
     });
   }
   mainGame = () => {
-    this.cUI.clearChoice();
+    this.computerInterface.clearChoice();
     this.hideFinalResult();
     this.startRound();
 
-    this.cUI.displayChoice(this.computer.hand);
+    this.computerInterface.displayChoice(this.computer.hand);
     this.player.clearHand();
     this.computer.clearHand();
   };
@@ -68,8 +68,8 @@ class Game {
     this.clearResult();
     this.displayIntroScreen();
     this.hidePlayers();
-    this.cUI.clearScore();
-    this.pUI.clearScore();
+    this.computerInterface.clearScore();
+    this.playerUserInterface.clearScore();
     this.displayFinalResult();
     this.restartButton();
   };
@@ -93,8 +93,8 @@ class Game {
     finalResultHeading.style.display = "block";
   }
   displayResult(result) {
-    this.pUI.displayScore(this.player.score);
-    this.cUI.displayScore(this.computer.score);
+    this.playerUserInterface.displayScore(this.player.score);
+    this.computerInterface.displayScore(this.computer.score);
     this.scoreBoard.innerHTML = `<p>${result}</p>`;
   }
   clearResult = () => {
@@ -125,8 +125,8 @@ class Game {
     this.computer = new AIPlayer(nameComputer);
   }
   createControls() {
-    this.pUI = new HumanPlayerUI(this.player.name);
-    this.cUI = new AIUI(this.computer.name);
+    this.playerUserInterface = new HumanPlayerUI(this.player.name);
+    this.computerInterface = new AIUI(this.computer.name);
   }
   showPlayers() {
     document.querySelector(".players").style.display = "flex";
