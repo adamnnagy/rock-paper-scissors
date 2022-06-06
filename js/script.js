@@ -2,23 +2,20 @@
 
 class Game {
   constructor(finalScore) {
-    
     this.scoreBoard = document.querySelector("#score-board");
     const startGameButton = document.querySelector(".intro button");
     this.introScreen = document.querySelector(".intro");
 
-
     startGameButton.addEventListener("click", () => {
       this.startGame();
     });
-    
+
     this.player = null;
     this.computer = null;
-    
+
     this.finalScore = finalScore;
     this.roundCount = null;
     this.controlsCreated = false;
-    
   }
   startGame() {
     this.clearResult();
@@ -28,23 +25,14 @@ class Game {
     this.hideIntroScreen();
     if (!this.controlsCreated) {
       this.createControls();
-      this.initControls();
+      this.initPlayerControls();
     } else {
       this.showPlayers();
     }
     this.computerInterface.clearChoice();
     this.controlsCreated = true;
   }
-  initControls() {
-    this.controls = this.playerUserInterface.container || null;
 
-    this.controls.addEventListener("click", (e) => {
-      this.player.hand = e.target.attributes.type.value.toLowerCase();
-      this.computer.hand = this.computer.randomHand();
-
-      this.mainGame();
-    });
-  }
   mainGame = () => {
     this.computerInterface.clearChoice();
     this.hideFinalResult();
@@ -121,6 +109,16 @@ class Game {
   isGameOver = (p1, p2) => {
     return !(p1.score < finalScore && p2.score < finalScore);
   };
+  initPlayerControls() {
+    this.controls = this.playerUserInterface.container || null;
+
+    this.controls.addEventListener("click", (e) => {
+      this.player.hand = e.target.attributes.type.value.toLowerCase();
+      this.computer.hand = this.computer.randomHand();
+
+      this.mainGame();
+    });
+  }
   createPlayers(namePlayer, nameComputer) {
     this.player = new HumanPlayer(namePlayer);
     this.computer = new AIPlayer(nameComputer);
