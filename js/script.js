@@ -1,5 +1,7 @@
 "use strict";
 
+const HumanPlayerUI = require("./HumanPlayerUI");
+
 class Game {
   constructor(finalScore) {
     this.scoreBoard = document.querySelector("#score-board");

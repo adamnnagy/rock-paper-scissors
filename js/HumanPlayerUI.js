@@ -27,3 +27,5 @@ class HumanPlayerUI extends PlayerUI {
     this._addElementToPlayerContainer(this._scoreTally());
   }
 }
+
+module.exports = HumanPlayerUI;

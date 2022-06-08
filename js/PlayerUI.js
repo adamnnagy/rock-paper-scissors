@@ -53,3 +53,5 @@ class PlayerUI {
   }
   initializeUI() {}
 }
+
+module.exports = PlayerUI;
