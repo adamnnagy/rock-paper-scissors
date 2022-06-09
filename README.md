@@ -64,3 +64,10 @@ buttons for the options (rock, paper, scissors)
 a place where the opponents pick will be
 layout: side by side or top-bottom
 scores tally - it should be obvious how many points/rounds you need to win
+
+# To Do 
+The Problem: currently the Game body handles most of the control flow the application, and it changes its own state.
+[] Rethink Game object - what should be handled in the Game body, what should be handled outside of the Game body? 
+[] How should the control flow go?
+[] Who initializes the event listener of the Player controls? 
+    [] how are these values passed?
