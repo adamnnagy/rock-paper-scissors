@@ -1,5 +1,23 @@
 # rock-paper-scissors
 
+# rules
+
+## reach a score
+check if someone has reached the target score of 5
+if the score is reached, announce winner
+else: start a new round
+
+## best of 5 rounds
+establish a number of rounds (def: 5)
+start a round
+if draw, start a new round
+else award score
+check if all rounds have elapsed - round counter reached
+    if yes: game over, announce winner, new round?
+    if not, start new round
+
+## Problem design
+
 1. inputs: 
 - (single player): hand of the player 
 - multi player: hand of both players at the same time?
@@ -41,25 +59,8 @@ determine the outcome - "draw - play again", "rock beats scissors, P1 gets a poi
     if other hand is 
 calculate who gets the point
 
-# rules
+# Dynamic UI
 
-## reach a score
-check if someone has reached the target score (3?)
-if the score is reached, announce winner
-else: start a new round
-
-## best of 3 rounds
-establish a number of rounds (def: 3)
-start a round
-if draw, start a new round
-else award score
-check if all rounds have elapsed - round counter reached
-    if yes: game over, announce winner, new round?
-    if not, start new round
-
-# UI
-
-input field for player name
 buttons for the options (rock, paper, scissors)
 a place where the opponents pick will be
 layout: side by side or top-bottom
