@@ -53,4 +53,4 @@ class PlayerInterface {
 	initializeUI() {}
 }
 
-export { PlayerInterface as PlayerUI };
+export { PlayerInterface };

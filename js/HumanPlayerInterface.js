@@ -30,4 +30,4 @@ class HumanPlayerInterface extends PlayerInterface {
 	}
 }
 
-export { HumanPlayerInterface as HumanPlayerUI };
+export { HumanPlayerInterface };

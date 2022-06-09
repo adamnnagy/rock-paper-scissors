@@ -1,6 +1,6 @@
-import { PlayerUI } from "./PlayerInterface.js";
+import { PlayerInterface } from "./PlayerInterface.js";
 
-class ComputerInterface extends PlayerUI {
+class ComputerInterface extends PlayerInterface {
 	constructor(name) {
 		super(name);
 		this.initializeUI();

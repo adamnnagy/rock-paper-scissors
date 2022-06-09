@@ -8,12 +8,7 @@ import { HumanPlayer } from "./HumanPlayer.js";
 class Game {
 	constructor(finalScore) {
 		this.scoreBoard = document.querySelector("#score-board");
-		const startGameButton = document.querySelector(".intro button");
 		this.introScreen = document.querySelector(".intro");
-
-		startGameButton.addEventListener("click", () => {
-			this.startGame();
-		});
 
 		this.player = null;
 		this.computer = null;
@@ -146,6 +141,12 @@ class Game {
 	}
 }
 
-const finalScore = 3;
+const finalScore = 5;
+
+const startGameButton = document.querySelector(".intro button");
 
 const myGame = new Game(finalScore);
+
+startGameButton.addEventListener("click", () => {
+	myGame.startGame();
+});
