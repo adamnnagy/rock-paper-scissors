@@ -1,6 +1,6 @@
 "use strict";
 
-import { HumanPlayerUI } from "./HumanPlayerUI.js";
+import { HumanPlayerInterface } from "./HumanPlayerInterface.js";
 import { ComputerInterface } from "./ComputerInterface.js";
 import { AIPlayer } from "./AIPlayer.js";
 import { HumanPlayer } from "./HumanPlayer.js";
@@ -129,7 +129,7 @@ class Game {
 		this.computer = new AIPlayer(nameComputer);
 	}
 	createControls() {
-		this.playerUserInterface = new HumanPlayerUI(this.player.name);
+		this.playerUserInterface = new HumanPlayerInterface(this.player.name);
 		this.computerInterface = new ComputerInterface(this.computer.name);
 	}
 	showPlayers() {

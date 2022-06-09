@@ -1,4 +1,4 @@
-class PlayerUI {
+class PlayerInterface {
 	constructor(name) {
 		this.displayName = name;
 		this.name = name.toLowerCase().replace(" ", "-");
@@ -53,4 +53,4 @@ class PlayerUI {
 	initializeUI() {}
 }
 
-export { PlayerUI };
+export { PlayerInterface as PlayerUI };

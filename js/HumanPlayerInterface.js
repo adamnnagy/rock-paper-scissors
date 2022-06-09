@@ -1,6 +1,6 @@
-import { PlayerUI } from "./PlayerUI.js";
+import { PlayerInterface } from "./PlayerInterface.js";
 
-class HumanPlayerUI extends PlayerUI {
+class HumanPlayerInterface extends PlayerInterface {
 	constructor(name) {
 		super(name);
 		this.initializeUI();
@@ -30,4 +30,4 @@ class HumanPlayerUI extends PlayerUI {
 	}
 }
 
-export { HumanPlayerUI };
+export { HumanPlayerInterface as HumanPlayerUI };
